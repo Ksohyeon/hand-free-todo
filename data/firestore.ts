@@ -10,29 +10,18 @@ import {
   getDoc,
   deleteDoc,
   updateDoc,
-  initializeFirestore,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-// Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: process.env.API_KEY,
-//   authDomain: process.env.AUTH_DOMAIN,
-//   projectId: process.env.PROJECT_ID,
-//   storageBucket: process.env.STORAGE_BUCKET,
-//   messagingSenderId: process.env.MESSAGING_SENDER_ID,
-//   appId: process.env.APP_ID,
-// };
 const firebaseConfig = {
-  apiKey: "AIzaSyDIoB6cP2D4h60arPtzejea2iu0PqTD7Xg",
-  authDomain: "hand-free-todo.firebaseapp.com",
-  projectId: "hand-free-todo",
-  storageBucket: "hand-free-todo.appspot.com",
-  messagingSenderId: "914635253787",
-  appId: "1:914635253787:web:8c52a0a21e51015281f0be",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMIAN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 

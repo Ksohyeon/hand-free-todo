@@ -104,6 +104,7 @@ export type Todo = {
 };
 
 export default function todo() {
+  const [isSttModalOpen, setIsSttModalOpen] = useState<boolean>(true);
   const [todos, setTodos] = useState<Todo[]>([]);
   const uid = useAppSelector((state) => state.auth.uid);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -132,6 +133,7 @@ export default function todo() {
 
   return (
     <>
+      {isSttModalOpen && <div></div>}
       <TodoWrapper>
         <Todo theme={theme}>
           <h1>TODOS</h1>

@@ -99,6 +99,7 @@ const TodoEditModal = styled.div<{ theme: string }>`
   justify-content: flex-start;
 
   button:nth-child(1) {
+    color: ${(props) => (props.theme === "light" ? "#000000" : "#ffffff")};
     align-self: flex-end;
     position: relative;
     border: none;
@@ -110,13 +111,20 @@ const TodoEditModal = styled.div<{ theme: string }>`
     }
   }
   form {
+    margin-top: 2vh;
     height: 50px;
     font-size: medium;
     button {
+      background-color: ${(props) =>
+        props.theme === "light" ? "#cccccc" : "#dddddd"};
       width: 20%;
       height: 100%;
+      border: none;
       border-radius: 0 10px 10px 0;
       font-weight: bold;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
   input {
