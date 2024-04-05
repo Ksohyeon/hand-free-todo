@@ -6,7 +6,10 @@ export default async function UPDATE(
   res: NextApiResponse
 ) {
   const { uid, id } = req.query;
-  const { title, is_done } = await req.body;
+  const body = JSON.parse(req.body);
+  const { title, is_done } = body;
+  console.log("title: ", title);
+  console.log("is_done: ", is_done);
 
   if (typeof uid !== "string" && typeof id !== "string") {
     res.status(204).json({ message: "요청이 잘못 되었습니다." });

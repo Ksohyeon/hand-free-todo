@@ -81,7 +81,6 @@ export async function fetchATodo(uid: string, id: string) {
 
 // 단일 todo 추가
 export async function addATodo(uid: string, title: string) {
-  console.log("firestore: ", uid, title);
   const newTodoRef = doc(collection(db, "todos", uid, "todo"));
   const createAtTimeStamp = Timestamp.fromDate(new Date());
   const newTodo = {

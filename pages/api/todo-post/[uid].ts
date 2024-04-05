@@ -4,9 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 // 새로운 todo 생성
 export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   const { uid } = req.query;
-  const body = await req.body;
   const title = JSON.parse(req.body).title;
-  console.log("title: ", title);
 
   if (title === null || title === "") {
     const response = { message: "작성된 내용이 없습니다." };

@@ -4,6 +4,7 @@ import TodoTableComp from "@/src/component/TodoTableComp";
 import { useAppSelector } from "@/src/redux/hooks";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import { FaMicrophone } from "react-icons/fa";
 
 const TodoWrapper = styled.div`
   width: 100vw;
@@ -20,12 +21,27 @@ const Todo = styled.div<{ theme: string }>`
   justify-content: center;
   width: 700px;
   min-height: 70vh;
-  thead th:not(:nth-child(4)) {
+  thead {
+    width: 100%;
+    padding: 1vh 1vw;
     background-color: ${(props) =>
       props.theme === "light" ? "#ffffff" : "#3e3e3e"};
-    padding: 1vh 0;
-    margin: 0 2vw;
+    border: none;
     border-radius: 10px;
+  }
+  thead th:nth-child(1) {
+    width: 30%;
+    border-radius: 10px 0 0 10px;
+  }
+  thead th:nth-child(2) {
+    width: 50%;
+  }
+  thead th:nth-child(3) {
+    width: 10%;
+  }
+  thead th:nth-child(4) {
+    width: 10%;
+    border-radius: 0 10px 10px 0;
   }
 `;
 
@@ -33,25 +49,30 @@ const Form = styled.form`
   display: flex;
   width: 100%;
   justify-content: center;
+  align-items: center;
   margin-top: 2vh;
+  svg {
+    width: 5%;
+  }
 `;
 const Input = styled.input<{ theme: string }>`
-  width: 65%;
+  width: 63%;
   height: 50px;
   border: ${(props) => (props.theme === "light" ? 1 : 0)}px solid black;
   border-radius: 10px;
-  margin-right: 1%;
+  padding: 0 1%;
   background-color: ${(props) =>
     props.theme === "light" ? "white" : "#555555"};
   color: ${(props) => (props.theme === "light" ? "#000000" : "#ffffff")};
 `;
 const SubmitBtn = styled.button<{ theme: string }>`
-  width: 14%;
+  width: 11%;
   height: 50px;
   font-size: medium;
   font-weight: bold;
   border: none;
   border-radius: 10px;
+  margin-left: 1%;
   background-color: ${(props) =>
     props.theme === "light" ? "#e2e2e2" : "#555555"};
   color: ${(props) => (props.theme === "light" ? "#000000" : "#ffffff")};
@@ -62,14 +83,18 @@ const SubmitBtn = styled.button<{ theme: string }>`
 
 const Table = styled.table<{ theme: string }>`
   background-color: ${(props) =>
-    props.theme === "light" ? "#e2e2e2" : "#555555"};
+    props.theme === "light" ? "#f5f5f5" : "#555555"};
   border-radius: 15px;
   margin-top: 2vh;
   border-collapse: separate;
-  border-spacing: 10px 7px;
+  border-spacing: 0 7px;
   width: 80%;
   padding: 2vh 1vw;
   text-align: left;
+  th,
+  td {
+    padding: 1vh 0;
+  }
 `;
 export type Todo = {
   id: string;
@@ -116,6 +141,7 @@ export default function todo() {
               theme={theme}
               placeholder=" 새로운 할 일"
             ></Input>
+            <FaMicrophone size={24} />
             <SubmitBtn theme={theme} type="submit">
               추가
             </SubmitBtn>
@@ -123,11 +149,11 @@ export default function todo() {
 
           <Table theme={theme}>
             <thead>
-              <tr>
-                <th style={{ width: "30%" }}>&nbsp;생성일</th>
-                <th style={{ width: "50%" }}>&nbsp;내용</th>
-                <th style={{ width: "10%" }}>&nbsp;완료</th>
-                <th style={{ width: "10%" }}></th>
+              <tr style={{ paddingTop: "1vh" }}>
+                <th>&nbsp;생성일</th>
+                <th>&nbsp;내용</th>
+                <th>&nbsp;완료</th>
+                <th>&nbsp;</th>
               </tr>
             </thead>
             <TodoTableComp todos={todos} setTodos={setTodos} theme={theme} />
