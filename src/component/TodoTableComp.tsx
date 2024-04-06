@@ -116,7 +116,7 @@ const TodoEditModal = styled.div<{ theme: string }>`
     font-size: medium;
     button {
       background-color: ${(props) =>
-        props.theme === "light" ? "#cccccc" : "#dddddd"};
+        props.theme === "light" ? "#cccccc" : "#dadada"};
       width: 20%;
       height: 100%;
       border: none;
