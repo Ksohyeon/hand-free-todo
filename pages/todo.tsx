@@ -103,7 +103,7 @@ const Clickable = styled.span`
 
 export type FilteringOption = "no-option" | "done" | "ongoing";
 
-export default function todo() {
+export default function Todo() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filteringOption, setFilteringOption] =
     useState<FilteringOption>("no-option");
