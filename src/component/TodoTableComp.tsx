@@ -3,12 +3,11 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
-import { FilteringOption, Todo } from "@/pages/todo";
+import { Todo } from "@/pages/todo";
 import Image from "next/image";
 import Check from "@/public/img/check.png";
 import Pin from "@/public/img/pin.png";
 import { SlOptionsVertical } from "react-icons/sl";
-import SpeechToTextComp from "./SpeechToTextComp";
 
 const TableBody = styled.tbody`
   td {
@@ -121,19 +120,19 @@ const TodoEditModal = styled.div<{ theme: string }>`
       width: 20%;
       height: 100%;
       border: none;
-      border-radius: 10px;
+      border-radius: 0 10px 10px 0;
       font-weight: bold;
       &:hover {
         cursor: pointer;
       }
     }
-    input {
-      border: none;
-      border-radius: 10px;
-      width: 80%;
-      height: 100%;
-      padding: 1vh 1vw;
-    }
+  }
+  input {
+    border: none;
+    border-radius: 10px 0 0 10px;
+    width: 80%;
+    height: 100%;
+    padding: 1vh 1vw;
   }
 `;
 
@@ -141,15 +140,12 @@ export default function TodoTableComp({
   theme,
   todos,
   setTodos,
-  filteringOption,
 }: {
   theme: string;
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-  filteringOption: FilteringOption;
 }) {
   const uid = useAppSelector((state) => state.auth.uid);
-  const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
 
   async function fetchTodosApiCall() {
     const response = await fetch(
@@ -192,6 +188,16 @@ export default function TodoTableComp({
       setTodos(res.data);
     });
   };
+  const updatedTotoSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    const updatedTodo = JSON.stringify({
+      title: inputTitleRef.current?.value,
+      is_done: currentTodo?.is_done,
+    });
+    updateTodo(updatedTodo, currentTodo);
+
+    setIsModalOpen(false);
+  };
 
   const switchTodoState = (todo: Todo) => {
     setCurrentTodo(todo);
@@ -210,32 +216,26 @@ export default function TodoTableComp({
     });
   };
 
-  useEffect(() => {
-    let filtered = todos;
-    if (filteringOption === "done")
-      filtered = todos.filter((todo) => todo.is_done);
-    else if (filteringOption === "ongoing")
-      filtered = todos.filter((todo) => !todo.is_done);
-    setFilteredTodos(filtered);
-  }, [todos, filteringOption]);
-
   return (
     <>
       <ModalWrapper isModalOpen={isModalOpen}>
         <TodoEditModal theme={theme}>
-          <button onClick={() => setIsModalOpen(false)}>X</button>
-          <SpeechToTextComp
-            mode="update"
-            setIsModalOpen={setIsModalOpen}
-            theme={theme}
-            currentTodo={currentTodo}
-            updateTodo={updateTodo}
-          />
+          <button
+            onClick={() => {
+              setIsModalOpen(false);
+            }}
+          >
+            X
+          </button>
+          <form onSubmit={updatedTotoSubmit}>
+            <input ref={inputTitleRef} type="text"></input>
+            <button type="submit">수정</button>
+          </form>
         </TodoEditModal>
       </ModalWrapper>
 
       <TableBody style={{ textAlign: "center" }}>
-        {filteredTodos.map((todo: Todo) => {
+        {todos.map((todo: Todo) => {
           return (
             <tr style={{ marginTop: "1vh" }} key={todo.id}>
               <td>{todo.created_at.slice(0, 10)}</td>

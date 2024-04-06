@@ -1,9 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FaMicrophone } from "react-icons/fa";
-import { Todo } from "@/pages/todo";
 
 const Form = styled.form`
   display: flex;
@@ -44,20 +43,18 @@ const SubmitBtn = styled.button<{ theme: string }>`
   }
 `;
 
+declare global {
+  interface Window {
+    webkitSpeechRecognition: any;
+  }
+}
+
 export default function SpeechToTextComp({
-  mode,
   theme,
-  currentTodo,
   handleSubmitTodo,
-  updateTodo,
-  setIsModalOpen,
 }: {
-  mode: "create" | "update";
   theme: string;
-  currentTodo?: Todo;
-  handleSubmitTodo?: any;
-  updateTodo?: any;
-  setIsModalOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSubmitTodo: any;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isRecording, setIsRecording] = useState(false);
@@ -67,7 +64,7 @@ export default function SpeechToTextComp({
 
   const startRecording = () => {
     setIsRecording(true);
-    recognitionRef.current = new webkitSpeechRecognition();
+    recognitionRef.current = new window.webkitSpeechRecognition();
     recognitionRef.current.continuous = true;
     recognitionRef.current.interimResults = true;
 
@@ -109,42 +106,16 @@ export default function SpeechToTextComp({
     if (inputRef.current) inputRef.current.value = "";
   };
 
-  const updatedTotoSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    const updatedTodo = JSON.stringify({
-      title: inputRef.current?.value,
-      is_done: currentTodo?.is_done,
-    });
-    updateTodo(updatedTodo, currentTodo);
-
-    if (setIsModalOpen) setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    if (setIsModalOpen && inputRef.current)
-      inputRef.current.value = currentTodo?.title ?? "";
-    console.log("!!!!: ", currentTodo?.title ?? "");
-    return () => {
-      if (setIsModalOpen && inputRef.current) inputRef.current.value = "";
-    };
-  }, [currentTodo]);
-
   return (
-    <Form
-      style={{ width: "100%" }}
-      onSubmit={(e) => {
-        if (mode === "create") handleSubmit(e);
-        else if (mode === "update") updatedTotoSubmit(e);
-      }}
-    >
+    <Form style={{ width: "100%" }} onSubmit={handleSubmit}>
       <Input ref={inputRef} theme={theme} placeholder=" 새로운 할 일"></Input>
       <FaMicrophone
         size={24}
         onClick={handleRecording}
-        color={isRecording ? "red" : theme === "light" ? "black" : "white"}
+        color={isRecording ? "red" : "black"}
       />
       <SubmitBtn theme={theme} type="submit">
-        {mode === "create" ? "추가" : "수정"}
+        추가
       </SubmitBtn>
     </Form>
   );
