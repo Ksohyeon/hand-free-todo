@@ -16,7 +16,7 @@ const TodoWrapper = styled.div`
   align-items: center;
 `;
 
-const Todo = styled.div<{ theme: string }>`
+const Todos = styled.div<{ theme: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -133,7 +133,7 @@ export default function Todo() {
   return (
     <>
       <TodoWrapper>
-        <Todo theme={theme}>
+        <Todos theme={theme}>
           <h1>TODOS</h1>
           <SpeechToTextComp
             mode="create"
