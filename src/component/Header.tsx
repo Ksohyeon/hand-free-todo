@@ -98,6 +98,7 @@ export default function Header() {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         if (credential === null) return;
         const token = credential.accessToken;
+        console.log(token);
         const user = result.user;
         console.log("user: ", result.user);
         dispatch(

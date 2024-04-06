@@ -3,7 +3,7 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
-import { Todo } from "@/pages/todo";
+import { Todo } from "@/pages/Todo";
 import Image from "next/image";
 import Check from "@/public/img/check.png";
 import Pin from "@/public/img/pin.png";

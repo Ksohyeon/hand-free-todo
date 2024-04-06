@@ -14,7 +14,7 @@ const TodoWrapper = styled.div`
   align-items: center;
 `;
 
-const Todo = styled.div<{ theme: string }>`
+const Todos = styled.div<{ theme: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,7 +67,7 @@ export type Todo = {
   created_at: string;
 };
 
-export default function todo() {
+export default function Todo() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const uid = useAppSelector((state) => state.auth.uid);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -95,7 +95,7 @@ export default function todo() {
   return (
     <>
       <TodoWrapper>
-        <Todo theme={theme}>
+        <Todos theme={theme}>
           <h1>TODOS</h1>
           <SpeechToTextComp theme={theme} handleSubmitTodo={handleSubmitTodo} />
           <Table theme={theme}>
@@ -109,7 +109,7 @@ export default function todo() {
             </thead>
             <TodoTableComp todos={todos} setTodos={setTodos} theme={theme} />
           </Table>
-        </Todo>
+        </Todos>
       </TodoWrapper>
     </>
   );
