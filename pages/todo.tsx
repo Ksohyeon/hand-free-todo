@@ -177,7 +177,7 @@ export default function Todo() {
               filteringOption={filteringOption}
             />
           </Table>
-        </Todo>
+        </Todos>
       </TodoWrapper>
     </>
   );
