@@ -25,7 +25,7 @@ const Input = styled.input<{ theme: string }>`
   border-radius: 10px;
   padding: 0 1%;
   background-color: ${(props) =>
-    props.theme === "light" ? "white" : "#555555"};
+    props.theme === "light" ? "white" : "#535353"};
   color: ${(props) => (props.theme === "light" ? "#000000" : "#ffffff")};
 `;
 const SubmitBtn = styled.button<{ theme: string }>`
