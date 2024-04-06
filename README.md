@@ -6,7 +6,7 @@
 <img src="https://github.com/Ksohyeon/hand-free-todo/blob/main/readme-img/main-page.png" width="700"/>
 
 🔅 나의 일정 페이지 </br>
-<img src="https://github.com/Ksohyeon/hand-free-todo/blob/main/readme-img/todo-page.png" width="700"/> </br>
+<img src="https://github.com/Ksohyeon/hand-free-todo/blob/main/readme-img/todo-page1.png" width="700"/> </br>
 - 일정 필터링 </br>
 <img src="https://github.com/Ksohyeon/hand-free-todo/blob/main/readme-img/todo-filtering.png" width="800"/> </br>
 - 일정 추가 </br>
