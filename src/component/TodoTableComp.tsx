@@ -237,7 +237,7 @@ export default function TodoTableComp({
       <TableBody style={{ textAlign: "center" }}>
         {todos.map((todo: Todo) => {
           return (
-            <tr style={{ marginTop: "1vh" }} key={todo.id} accessKey={todo.id}>
+            <tr style={{ marginTop: "1vh" }} key={todo.id}>
               <td>{todo.created_at.slice(0, 10)}</td>
               <td>{todo.title}</td>
               <td>

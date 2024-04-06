@@ -4,7 +4,7 @@ import TodoTableComp from "@/src/component/TodoTableComp";
 import { useAppSelector } from "@/src/redux/hooks";
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { FaMicrophone } from "react-icons/fa";
+import SpeechToTextComp from "@/src/component/SpeechToTextComp";
 
 const TodoWrapper = styled.div`
   width: 100vw;
@@ -45,42 +45,6 @@ const Todo = styled.div<{ theme: string }>`
   }
 `;
 
-const Form = styled.form`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  margin-top: 2vh;
-  svg {
-    width: 5%;
-  }
-`;
-const Input = styled.input<{ theme: string }>`
-  width: 63%;
-  height: 50px;
-  border: ${(props) => (props.theme === "light" ? 1 : 0)}px solid black;
-  border-radius: 10px;
-  padding: 0 1%;
-  background-color: ${(props) =>
-    props.theme === "light" ? "white" : "#555555"};
-  color: ${(props) => (props.theme === "light" ? "#000000" : "#ffffff")};
-`;
-const SubmitBtn = styled.button<{ theme: string }>`
-  width: 11%;
-  height: 50px;
-  font-size: medium;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  margin-left: 1%;
-  background-color: ${(props) =>
-    props.theme === "light" ? "#e2e2e2" : "#555555"};
-  color: ${(props) => (props.theme === "light" ? "#000000" : "#ffffff")};
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
 const Table = styled.table<{ theme: string }>`
   background-color: ${(props) =>
     props.theme === "light" ? "#f5f5f5" : "#555555"};
@@ -104,14 +68,12 @@ export type Todo = {
 };
 
 export default function todo() {
-  const [isSttModalOpen, setIsSttModalOpen] = useState<boolean>(true);
   const [todos, setTodos] = useState<Todo[]>([]);
   const uid = useAppSelector((state) => state.auth.uid);
   const inputRef = useRef<HTMLInputElement>(null);
   const theme = useAppSelector((state) => state.theme.mode);
 
-  async function fetchTodoApiCall() {
-    const title = inputRef.current?.value ?? "";
+  async function fetchTodoApiCall(title: string) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/todo-post/${uid}`,
       {
@@ -123,9 +85,8 @@ export default function todo() {
     return response.json();
   }
 
-  const handleSubmitTodo = async (event: React.FormEvent) => {
-    event.preventDefault();
-    fetchTodoApiCall().then((res) => {
+  const handleSubmitTodo = async (title: string) => {
+    fetchTodoApiCall(title).then((res) => {
       console.log(res.data);
       setTodos((prev) => [...prev, res.data]);
     });
@@ -133,22 +94,10 @@ export default function todo() {
 
   return (
     <>
-      {isSttModalOpen && <div></div>}
       <TodoWrapper>
         <Todo theme={theme}>
           <h1>TODOS</h1>
-          <Form style={{ width: "100%" }} onSubmit={handleSubmitTodo}>
-            <Input
-              ref={inputRef}
-              theme={theme}
-              placeholder=" 새로운 할 일"
-            ></Input>
-            <FaMicrophone size={24} />
-            <SubmitBtn theme={theme} type="submit">
-              추가
-            </SubmitBtn>
-          </Form>
-
+          <SpeechToTextComp theme={theme} handleSubmitTodo={handleSubmitTodo} />
           <Table theme={theme}>
             <thead>
               <tr style={{ paddingTop: "1vh" }}>
